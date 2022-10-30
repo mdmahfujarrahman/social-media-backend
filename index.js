@@ -5,8 +5,8 @@ import authRoutes from "./Router/auth.route.js";
 import commentsRoutes from "./Router/comments.route.js";
 import likesRoutes from "./Router/likes.route.js";
 import postsRoutes from "./Router/posts.route.js";
+import relationshipRoutes from "./Router/relationship.route.js";
 import usersRoutes from "./Router/users.route.js";
-import multer from "multer"
 const app = express();
 
 
@@ -22,25 +22,13 @@ app.use(
 );
 app.use(cookieParser());
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, "");
-    },
-    filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-        cb(null, file.fieldname + "-" + uniqueSuffix);
-    },
-});
-
-const upload = multer({ storage: storage });
-
-
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", usersRoutes);
 app.use("/api/posts", postsRoutes);
 app.use("/api/comments", commentsRoutes);
 app.use("/api/likes", likesRoutes);
+app.use("/api/relationship", relationshipRoutes);
 
 
 
